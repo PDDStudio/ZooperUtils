@@ -9,6 +9,7 @@ import com.pddstudio.zooperutils.adapters.RecyclerAdapter;
 import com.pddstudio.zooperutils.adapters.RecyclerImageAdapter;
 import com.pddstudio.zooperutils.utils.AssetListener;
 import com.pddstudio.zooperutils.utils.AssetUtils;
+import com.pddstudio.zooperutils.utils.SingleAssetUtils;
 
 import org.apache.commons.io.FileUtils;
 
@@ -29,6 +30,7 @@ public final class ZooperUtils implements AssetUtils.AsyncAssetCallback {
 
     final Context context;
     final AssetUtils assetUtils;
+    final SingleAssetUtils singleAssetUtils;
     final List<File> extractedImages;
     final List<SimpleWidgetCallback> simpleWidgetCallbacks;
     RecyclerAdapter recyclerAdapter;
@@ -36,6 +38,7 @@ public final class ZooperUtils implements AssetUtils.AsyncAssetCallback {
     private ZooperUtils(Context context) throws IOException {
         this.context = context;
         this.assetUtils = new AssetUtils(context);
+        this.singleAssetUtils = new SingleAssetUtils(context);
         this.extractedImages = new LinkedList<>();
         this.simpleWidgetCallbacks = new LinkedList<>();
         assetUtils.prepareWithCallback(this);
@@ -76,6 +79,10 @@ public final class ZooperUtils implements AssetUtils.AsyncAssetCallback {
             if(bitmap != null) bitmapList.add(bitmap);
         }
         return bitmapList;
+    }
+
+    public File extractImageFromWidget(File widgetFile, File saveLocation) {
+        return singleAssetUtils.extractPreviewImage(widgetFile, saveLocation);
     }
 
     @Override
