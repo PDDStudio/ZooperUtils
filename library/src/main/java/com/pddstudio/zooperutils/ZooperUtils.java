@@ -68,6 +68,10 @@ public final class ZooperUtils implements AssetUtils.AsyncAssetCallback {
         return new RecyclerImageAdapter(images);
     }
 
+    public RecyclerImageAdapter createSimpleWidgetAdapter(List<Bitmap> images, boolean removeBackground) {
+        return new RecyclerImageAdapter(images).removeBackgroundColor();
+    }
+
     public List<File> getExtractedImages() {
         return extractedImages;
     }

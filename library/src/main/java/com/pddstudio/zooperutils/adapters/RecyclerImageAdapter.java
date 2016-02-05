@@ -2,6 +2,7 @@ package com.pddstudio.zooperutils.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pddstudio.zooperutils.R;
+import com.pddstudio.zooperutils.ZooperUtils;
+import com.pddstudio.zooperutils.utils.BitmapUtils;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -27,9 +30,15 @@ import java.util.List;
 public class RecyclerImageAdapter extends RecyclerView.Adapter<RecyclerImageAdapter.ViewHolder> {
 
     private List<Bitmap> itemData;
+    private boolean removeBg = false;
 
     public RecyclerImageAdapter(@NonNull List<Bitmap> dataSet) {
         this.itemData = dataSet;
+    }
+
+    public RecyclerImageAdapter removeBackgroundColor() {
+        this.removeBg = true;
+        return this;
     }
 
     public void addBitmap(Bitmap item) {
@@ -45,6 +54,9 @@ public class RecyclerImageAdapter extends RecyclerView.Adapter<RecyclerImageAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Bitmap widgetPreview = itemData.get(position);
+        if(removeBg) {
+            widgetPreview = BitmapUtils.replaceBackgroundColor(widgetPreview, Color.parseColor("#555555"), Color.TRANSPARENT);
+        }
         holder.widgetImage.setImageBitmap(widgetPreview);
     }
 

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements SimpleWidgetCallb
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(ZooperUtils.getInstance().createSimpleWidgetAdapter(images));
+        recyclerView.setAdapter(ZooperUtils.getInstance().createSimpleWidgetAdapter(images, true));
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

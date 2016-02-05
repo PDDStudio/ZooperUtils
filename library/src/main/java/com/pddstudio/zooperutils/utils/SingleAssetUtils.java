@@ -51,7 +51,10 @@ public class SingleAssetUtils {
                     if(!savedBitmap.exists()) FileUtils.moveFile(previewImage, savedBitmap);
                     if(savedBitmap.exists()) {
                         //Log.d("PreviewLoader", "Resource extracted to : " + finalImage.getAbsolutePath());
-                        return savedBitmap;
+                        File renamedBitmap = new File(savedBitmap.getParent() + "/" + savedBitmap.getName().replace(" ","_"));
+                        boolean rename = savedBitmap.renameTo(renamedBitmap);
+                        if(rename) return renamedBitmap;
+                        else return savedBitmap;
                     }
                 }
             }
