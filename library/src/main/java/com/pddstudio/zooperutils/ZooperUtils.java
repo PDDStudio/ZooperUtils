@@ -3,12 +3,13 @@ package com.pddstudio.zooperutils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 
 import com.pddstudio.zooperutils.adapters.RecyclerAdapter;
 import com.pddstudio.zooperutils.adapters.RecyclerImageAdapter;
-import com.pddstudio.zooperutils.utils.AssetListener;
 import com.pddstudio.zooperutils.utils.AssetUtils;
+import com.pddstudio.zooperutils.utils.BitmapUtils;
 import com.pddstudio.zooperutils.utils.SingleAssetUtils;
 
 import org.apache.commons.io.FileUtils;
@@ -87,6 +88,18 @@ public final class ZooperUtils implements AssetUtils.AsyncAssetCallback {
 
     public File extractImageFromWidget(File widgetFile, File saveLocation) {
         return singleAssetUtils.extractPreviewImage(widgetFile, saveLocation);
+    }
+
+    public Bitmap removeWidgetBackgroundColor(Bitmap widgetPreview) {
+        return BitmapUtils.replaceBackgroundColor(widgetPreview, Color.parseColor("#555555"), Color.TRANSPARENT);
+    }
+
+    public Bitmap removeWidgetBackgroundColor(Bitmap widgetPreview, @ColorInt int colorToRemove) {
+        return BitmapUtils.replaceBackgroundColor(widgetPreview, colorToRemove, Color.TRANSPARENT);
+    }
+
+    public Bitmap replaceWidgetBackgroundColor(Bitmap widgetPreview, @ColorInt int oldColor, @ColorInt int newColor) {
+        return BitmapUtils.replaceBackgroundColor(widgetPreview, oldColor, newColor);
     }
 
     @Override
